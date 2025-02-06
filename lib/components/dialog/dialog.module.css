@@ -1,4 +1,6 @@
 .dialog {
-	max-width: 80cqi;
-	max-height: 80cqb;
+	width: 100cqi;
+	height: 100cqb;
+	display: grid;
+	place-items: center;
 }

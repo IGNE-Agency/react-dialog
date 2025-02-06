@@ -14,8 +14,8 @@
 	"scripts": {
 		"dev": "vite",
 		"format": "bunx biome check --write --unsafe src",
-		"build": "tsc --p ./tsconfig-build.json && vite build",
-		"prepublishOnly": "bun run format && bun run build"
+		"prebuild": "bun run format",
+		"build": "tsc --p ./tsconfig-build.json && vite build"
 	},
 	"dependencies": {
 		"classnames": "^2.5.1",
