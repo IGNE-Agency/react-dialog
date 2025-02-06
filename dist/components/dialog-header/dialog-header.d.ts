@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
 export type DialogHeaderProps = Readonly<{
     children?: ReactNode;
+    className?: string;
 }>;
-declare const DialogHeader: ({ children }: DialogHeaderProps) => import("react/jsx-runtime").JSX.Element;
+declare const DialogHeader: ({ children, className }: DialogHeaderProps) => import("react/jsx-runtime").JSX.Element;
 export default DialogHeader;

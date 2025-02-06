@@ -1,27 +1,27 @@
-import { jsx as a } from "react/jsx-runtime";
+import { jsx as t } from "react/jsx-runtime";
 import l from "classnames";
 import { createPortal as s } from "react-dom";
-import '../../assets/dialog.css';const m = "_dialog_1mce7_1", c = {
-  dialog: m
+import '../../assets/dialog.css';const i = "_dialog_7oa77_1", m = {
+  dialog: i
 }, n = ({
-  children: e,
+  children: a,
   dialog: o,
-  className: r,
-  root: t
+  className: e,
+  root: r
 }) => o.isOpen ? s(
-  /* @__PURE__ */ a(
+  /* @__PURE__ */ t(
     "dialog",
     {
       ref: o.ref,
       className: l([
-        c.dialog,
-        r
+        m.dialog,
+        e
       ]),
-      children: e
+      children: a
     }
   ),
   // biome-ignore lint/style/noNonNullAssertion: #root should always be defined
-  t ?? document.querySelector("#root")
+  r ?? document.querySelector("#root")
 ) : null;
 export {
   n as default
