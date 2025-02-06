@@ -5,15 +5,13 @@ import {
 	DialogContent,
 	DialogFooter,
 	DialogHeader,
-	useDialog
+	useDialog,
 } from "../";
 
 const rootElement = document.getElementById("root");
 
 if (!rootElement) {
-	throw new Error(
-		"App could not mount. Root not found."
-	);
+	throw new Error("App could not mount. Root not found.");
 }
 
 const root = createRoot(rootElement);
@@ -21,22 +19,21 @@ const root = createRoot(rootElement);
 const App = () => {
 	const dialog = useDialog();
 	const [posts, setPosts] = useState(
-		[...new Array(10).keys()].map(i => ({
+		[...new Array(10).keys()].map((i) => ({
 			id: i.toString(),
 			title: "Lorem Ipsum",
 			content:
-				"Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam deleniti voluptatem optio expedita aliquam veritatis repudiandae, saepe corporis id, rerum voluptas quisquam illum veniam odio tenetur vitae consequatur, voluptate voluptatibus."
-		}))
+				"Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam deleniti voluptatem optio expedita aliquam veritatis repudiandae, saepe corporis id, rerum voluptas quisquam illum veniam odio tenetur vitae consequatur, voluptate voluptatibus.",
+		})),
 	);
-	const [postIdToBeDeleted, setPostIdToBeDeleted] =
-		useState<string>();
+	const [postIdToBeDeleted, setPostIdToBeDeleted] = useState<string>();
 
 	const removePost = (id: string) => {
-		setPosts(posts =>
+		setPosts((posts) =>
 			posts.toSpliced(
-				posts.findIndex(post => post.id === id),
-				1
-			)
+				posts.findIndex((post) => post.id === id),
+				1,
+			),
 		);
 		setPostIdToBeDeleted(undefined);
 		dialog.close();
@@ -45,7 +42,7 @@ const App = () => {
 	return (
 		<>
 			<h1>Posts</h1>
-			{posts.map(post => (
+			{posts.map((post) => (
 				<div key={post.id}>
 					<h2>
 						{post.title} {post.id}
@@ -56,18 +53,17 @@ const App = () => {
 						onClick={() => {
 							setPostIdToBeDeleted(post.id);
 							dialog.open();
-						}}>
+						}}
+					>
 						Delete post {post.id}
 					</button>
 				</div>
 			))}
 			<Dialog dialog={dialog} root={rootElement}>
-				<DialogHeader>
-					Removing {postIdToBeDeleted}
-				</DialogHeader>
+				<DialogHeader>Removing {postIdToBeDeleted}</DialogHeader>
 				<DialogContent>
-					Removing a post breaks other website's links
-					to your post, cannot be undone.
+					Removing a post breaks other website's links to your post, cannot be
+					undone.
 				</DialogContent>
 				<DialogFooter>
 					<button type="button" onClick={dialog.close}>
@@ -77,7 +73,8 @@ const App = () => {
 						type="button"
 						onClick={() => {
 							removePost(postIdToBeDeleted);
-						}}>
+						}}
+					>
 						I understand, remove post.
 					</button>
 				</DialogFooter>
@@ -89,5 +86,5 @@ const App = () => {
 root.render(
 	<StrictMode>
 		<App />
-	</StrictMode>
+	</StrictMode>,
 );
