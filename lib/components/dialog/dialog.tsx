@@ -8,7 +8,7 @@ export type DialogProps = Readonly<{
 	dialog: UseDialogReturn;
 	children?: ReactNode;
 	className?: string;
-	root: Element | DocumentFragment;
+	root?: Element | DocumentFragment;
 }>;
 
 const Dialog = ({
@@ -28,7 +28,8 @@ const Dialog = ({
 					])}>
 					{children}
 				</dialog>,
-				root
+				// biome-ignore lint/style/noNonNullAssertion: #root should always be defined
+				root ?? document.querySelector("#root")!
 		  );
 
 export default Dialog;
