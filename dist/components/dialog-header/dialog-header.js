@@ -1,15 +1,17 @@
-import { jsx as s } from "react/jsx-runtime";
-import o from "classnames";
-import '../../assets/dialog-header.css';const r = {}, l = ({
+import { jsx as r } from "react/jsx-runtime";
+import s from "classnames";
+import '../../assets/dialog-header.css';const o = "_header_1yq89_1", t = {
+  header: o
+}, c = ({
   children: e,
   className: a
-}) => /* @__PURE__ */ s(
+}) => /* @__PURE__ */ r(
   "header",
   {
-    className: o([r.header, a]),
+    className: s([t.header, a]),
     children: e
   }
 );
 export {
-  l as default
+  c as default
 };
