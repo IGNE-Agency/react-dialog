@@ -4,19 +4,19 @@ import { createPortal } from "react-dom";
 import type { UseDialogReturn } from "../../lib/use-dialog";
 import style from "./dialog.module.css";
 
-export type DialogProps = Readonly<{
-	dialog: UseDialogReturn;
+export type DialogProps<T> = Readonly<{
+	dialog: UseDialogReturn<T>;
 	children?: ReactNode;
 	className?: string;
 	root?: Element | DocumentFragment;
 }>;
 
-const Dialog = ({
+const Dialog = <T,>({
 	children,
 	dialog,
 	className,
 	root
-}: DialogProps) =>
+}: DialogProps<T>) =>
 	!dialog.isOpen
 		? null
 		: createPortal(

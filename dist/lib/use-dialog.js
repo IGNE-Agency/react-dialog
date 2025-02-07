@@ -1,35 +1,38 @@
-import { useState as d, useRef as m, useCallback as f, useEffect as a } from "react";
-import { flushSync as O } from "react-dom";
-const E = (t) => {
-  const [l, c] = d(
+import { useState as d, useRef as a, useCallback as f, useEffect as m } from "react";
+import { flushSync as h } from "react-dom";
+const w = (t) => {
+  const [s, c] = d(
     (t == null ? void 0 : t.defaultOpen) ?? !1
-  ), n = m(null), s = f(() => {
+  ), n = a(null), o = a(Promise.withResolvers()), l = f(() => {
     var e;
-    O(() => {
+    return h(() => {
       c(!0);
-    }), (e = n.current) == null || e.showModal();
-  }, []), u = f(() => {
-    var e;
-    (e = n.current) == null || e.close(), c(!1);
-  }, []), i = f(() => {
-    l ? u() : s();
-  }, [u, s, l]);
-  return a(() => {
-    t != null && t.defaultOpen && s();
-  }, []), a(() => {
+    }), (e = n.current) == null || e.showModal(), o.current.promise;
+  }, []), u = f((e) => {
+    var r;
+    (r = n.current) == null || r.close(), c(!1), o.current.resolve(e), o.current = Promise.withResolvers();
+  }, []), v = f(
+    (e) => {
+      s ? u(e) : l();
+    },
+    [u, l, s]
+  );
+  return m(() => {
+    t != null && t.defaultOpen && l();
+  }, []), m(() => {
     var r;
     const e = () => {
       c(!1);
     };
     return (r = n.current) == null || r.addEventListener("close", e), () => {
-      var o;
-      (o = n.current) == null || o.removeEventListener(
+      var i;
+      (i = n.current) == null || i.removeEventListener(
         "close",
         e
       );
     };
-  }, [l]), { open: s, close: u, toggle: i, ref: n, isOpen: l };
+  }, [s]), { open: l, close: u, toggle: v, ref: n, isOpen: s };
 };
 export {
-  E as useDialog
+  w as useDialog
 };
