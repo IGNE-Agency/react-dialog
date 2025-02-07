@@ -4,7 +4,7 @@ export type UseDialogParams = Readonly<{
 }>;
 export type UseDialogReturn<T> = Readonly<{
     open: () => void | Promise<T>;
-    close: () => void;
+    close: (value?: T) => void;
     toggle: () => void;
     ref: RefObject<HTMLDialogElement>;
     isOpen: boolean;
