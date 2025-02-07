@@ -12,8 +12,8 @@ export type UseDialogParams = Readonly<{
 }>;
 
 export type UseDialogReturn<T> = Readonly<{
-	open: () => void;
-	close: () => void | Promise<T>;
+	open: () => void | Promise<T>;
+	close: () => void;
 	toggle: () => void;
 	ref: RefObject<HTMLDialogElement>;
 	isOpen: boolean;
@@ -26,7 +26,7 @@ export const useDialog = <T>(
 		props?.defaultOpen ?? false
 	);
 	const ref = useRef<HTMLDialogElement>(null);
-	const resolver = useRef(Promise.withResolvers());
+	const resolver = useRef(Promise.withResolvers<T>());
 
 	const open = useCallback(() => {
 		flushSync(() => {
