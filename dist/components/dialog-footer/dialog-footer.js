@@ -1,6 +1,6 @@
 import { jsx as s } from "react/jsx-runtime";
 import e from "classnames";
-import '../../assets/dialog-footer.css';const r = "_footer_7os6z_1", f = {
+import '../../assets/dialog-footer.css';const r = "_footer_1sd62_1", f = {
   footer: r
 }, c = ({
   children: o,
