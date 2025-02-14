@@ -7,14 +7,17 @@ import {
 } from "react";
 import { flushSync } from "react-dom";
 
+type PromiseOr<T> = T | Promise<T>;
+
 export type UseDialogParams = Readonly<{
 	defaultOpen?: boolean;
+	allowEscape?: boolean;
 }>;
 
 export type UseDialogReturn<T> = Readonly<{
-	open: () => void | Promise<T>;
+	open: () => PromiseOr<T | void>;
 	close: (value?: T) => void;
-	toggle: () => void;
+	toggle: (value?: T) => PromiseOr<T | void>;
 	ref: RefObject<HTMLDialogElement>;
 	isOpen: boolean;
 }>;
@@ -26,56 +29,76 @@ export const useDialog = <T>(
 		props?.defaultOpen ?? false
 	);
 	const ref = useRef<HTMLDialogElement>(null);
-	const resolver = useRef(Promise.withResolvers<T>());
+	const resolver = useRef(
+		Promise.withResolvers<T | undefined>()
+	);
 
 	const open = useCallback(() => {
 		flushSync(() => {
 			setIsOpen(true);
 		});
+
 		ref.current?.showModal();
+
 		return resolver.current.promise;
 	}, []);
 
 	const close = useCallback((value?: T) => {
 		ref.current?.close();
 		setIsOpen(false);
+
 		resolver.current.resolve(value);
-		resolver.current = Promise.withResolvers();
+
+		// Ensure promise in only reset on new event loop tick
+		setTimeout(() => {
+			resolver.current = Promise.withResolvers();
+		});
 	}, []);
 
 	const toggle = useCallback(
 		(value?: T) => {
 			if (isOpen) {
-				close(value);
-			} else {
-				open();
+				return close(value);
 			}
+			return open();
 		},
 		[close, open, isOpen]
 	);
 
-	// biome-ignore lint/correctness/useExhaustiveDependencies: Should not react to any changes in `defaultOpen`.
+	// biome-ignore lint/correctness/useExhaustiveDependencies: Should not react to any changes in `props.defaultOpen`.
 	useEffect(() => {
 		if (props?.defaultOpen) {
 			open();
 		}
-	}, []);
+	}, [open]);
 
-	// biome-ignore lint/correctness/useExhaustiveDependencies: Should update on `isOpen`, or React won't update.
+	return {
+		open,
+		close,
+		toggle,
+		ref,
+		isOpen
+	};
+};
+
+export const useAttachListeners = <T>(
+	dialog: UseDialogReturn<T>
+) => {
 	useEffect(() => {
 		const listener = () => {
-			setIsOpen(false);
+			dialog.close();
 		};
 
-		ref.current?.addEventListener("close", listener);
+		dialog.ref.current?.addEventListener(
+			"cancel",
+			listener
+		);
 
 		return () => {
-			ref.current?.removeEventListener(
-				"close",
+			dialog.ref.current?.removeEventListener(
+				"cancel",
 				listener
 			);
 		};
-	}, [isOpen]);
-
-	return { open, close, toggle, ref, isOpen };
+	}, [dialog]);
 };

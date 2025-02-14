@@ -1,38 +1,52 @@
-import { useState as d, useRef as a, useCallback as f, useEffect as m } from "react";
+import { useState as v, useRef as i, useCallback as o, useEffect as a } from "react";
 import { flushSync as h } from "react-dom";
-const w = (t) => {
-  const [s, c] = d(
-    (t == null ? void 0 : t.defaultOpen) ?? !1
-  ), n = a(null), o = a(Promise.withResolvers()), l = f(() => {
-    var e;
+const E = (e) => {
+  const [t, s] = v(
+    (e == null ? void 0 : e.defaultOpen) ?? !1
+  ), r = i(null), u = i(
+    Promise.withResolvers()
+  ), c = o(() => {
+    var n;
     return h(() => {
-      c(!0);
-    }), (e = n.current) == null || e.showModal(), o.current.promise;
-  }, []), u = f((e) => {
-    var r;
-    (r = n.current) == null || r.close(), c(!1), o.current.resolve(e), o.current = Promise.withResolvers();
-  }, []), v = f(
-    (e) => {
-      s ? u(e) : l();
-    },
-    [u, l, s]
+      s(!0);
+    }), (n = r.current) == null || n.showModal(), u.current.promise;
+  }, []), l = o((n) => {
+    var f;
+    (f = r.current) == null || f.close(), s(!1), u.current.resolve(n), setTimeout(() => {
+      u.current = Promise.withResolvers();
+    });
+  }, []), m = o(
+    (n) => t ? l(n) : c(),
+    [l, c, t]
   );
-  return m(() => {
-    t != null && t.defaultOpen && l();
-  }, []), m(() => {
-    var r;
-    const e = () => {
-      c(!1);
+  return a(() => {
+    e != null && e.defaultOpen && c();
+  }, [c]), {
+    open: c,
+    close: l,
+    toggle: m,
+    ref: r,
+    isOpen: t
+  };
+}, L = (e) => {
+  a(() => {
+    var s;
+    const t = () => {
+      e.close();
     };
-    return (r = n.current) == null || r.addEventListener("close", e), () => {
-      var i;
-      (i = n.current) == null || i.removeEventListener(
-        "close",
-        e
+    return (s = e.ref.current) == null || s.addEventListener(
+      "cancel",
+      t
+    ), () => {
+      var r;
+      (r = e.ref.current) == null || r.removeEventListener(
+        "cancel",
+        t
       );
     };
-  }, [s]), { open: l, close: u, toggle: v, ref: n, isOpen: s };
+  }, [e]);
 };
 export {
-  w as useDialog
+  L as useAttachListeners,
+  E as useDialog
 };

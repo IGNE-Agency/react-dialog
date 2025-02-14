@@ -1,18 +1,18 @@
 import classNames from "classnames";
-import type { ReactNode } from "react";
+import type { HTMLAttributes } from "react";
 import style from "./dialog-header.module.css";
 
-export type DialogHeaderProps = Readonly<{
-	children?: ReactNode;
-	className?: string;
-}>;
+export type DialogHeaderProps =
+	HTMLAttributes<HTMLElement>;
 
 const DialogHeader = ({
 	children,
-	className
+	className,
+	...props
 }: DialogHeaderProps) => (
 	<header
-		className={classNames([style.header, className])}>
+		className={classNames([style.header, className])}
+		{...props}>
 		{children}
 	</header>
 );

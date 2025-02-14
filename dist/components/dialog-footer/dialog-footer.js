@@ -1,17 +1,19 @@
-import { jsx as s } from "react/jsx-runtime";
-import e from "classnames";
-import '../../assets/dialog-footer.css';const r = "_footer_1sd62_1", f = {
-  footer: r
-}, c = ({
+import { jsx as e } from "react/jsx-runtime";
+import r from "classnames";
+import '../../assets/dialog-footer.css';const f = "_footer_1sd62_1", a = {
+  footer: f
+}, l = ({
   children: o,
-  className: t
-}) => /* @__PURE__ */ s(
+  className: t,
+  ...s
+}) => /* @__PURE__ */ e(
   "footer",
   {
-    className: e([f.footer, t]),
+    className: r([a.footer, t]),
+    ...s,
     children: o
   }
 );
 export {
-  c as default
+  l as default
 };

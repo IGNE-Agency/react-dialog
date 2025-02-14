@@ -1,28 +1,35 @@
-import { jsx as t } from "react/jsx-runtime";
-import l from "classnames";
-import { createPortal as s } from "react-dom";
-import '../../assets/dialog.css';const i = "_dialog_7oa77_1", m = {
+import { jsx as f } from "react/jsx-runtime";
+import n from "classnames";
+import { createPortal as l } from "react-dom";
+import { useAttachListeners as u } from "../../lib/use-dialog.js";
+import '../../assets/dialog.css';const i = "_dialog_cq83n_1", p = {
   dialog: i
-}, n = ({
-  children: a,
-  dialog: o,
-  className: e,
-  root: r
-}) => o.isOpen ? s(
-  /* @__PURE__ */ t(
+}, q = ({
+  children: o,
+  dialog: e,
+  className: a,
+  root: t,
+  ignoreBackdropClick: m,
+  onClick: r,
+  ...c
+}) => (u(e), e.isOpen ? l(
+  /* @__PURE__ */ f(
     "dialog",
     {
-      ref: o.ref,
-      className: l([
-        m.dialog,
-        e
+      ref: e.ref,
+      className: n([
+        p.dialog,
+        a
       ]),
-      children: a
+      onClick: (s) => {
+        !m && s.target === e.ref.current && e.close(), r == null || r(s);
+      },
+      ...c,
+      children: o
     }
   ),
-  // biome-ignore lint/style/noNonNullAssertion: #root should always be defined
-  r ?? document.querySelector("#root")
-) : null;
+  (typeof t == "string" ? document.querySelector(t) : t) ?? document.body
+) : null);
 export {
-  n as default
+  q as default
 };
