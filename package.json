@@ -1,7 +1,7 @@
 {
 	"name": "react-dialog",
 	"private": true,
-	"version": "4.1.0",
+	"version": "4.1.1",
 	"type": "module",
 	"main": "dist/main.js",
 	"types": "dist/main.d.ts",
@@ -18,23 +18,24 @@
 		"build": "tsc --p ./tsconfig-build.json && vite build"
 	},
 	"dependencies": {
-		"classnames": "^2.5.1",
-		"react": "^18.3.1",
-		"react-dom": "^18.3.1"
+		"classnames": "2.5.1",
+		"react": "18.3.1",
+		"react-dom": "18.3.1"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "1.9.4",
-		"@types/bun": "^1.2.2",
-		"@types/react": "^18.3.18",
-		"@types/react-dom": "^18.3.5",
-		"@vitejs/plugin-react": "^4.3.4",
-		"glob": "^11.0.1",
-		"typescript": "~5.6.2",
-		"vite": "^6.0.5",
-		"vite-plugin-dts": "^4.5.0",
-		"vite-plugin-lib-inject-css": "^2.2.1"
+		"@types/bun": "1.2.21",
+		"@types/react": "18.3.24",
+		"@types/react-dom": "18.3.7",
+		"@vitejs/plugin-react": "4.7.0",
+		"glob": "11.0.3",
+		"typescript": "5.6.3",
+		"vite": "6.3.5",
+		"vite-plugin-dts": "4.5.4",
+		"vite-plugin-lib-inject-css": "2.2.2"
 	},
 	"trustedDependencies": [
-		"@biomejs/biome"
+		"@biomejs/biome",
+		"esbuild"
 	]
 }

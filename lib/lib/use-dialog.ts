@@ -22,7 +22,7 @@ export type UseDialogReturn<T> = Readonly<{
 	open: () => PromiseOr<T | void>;
 	close: (value?: T) => void;
 	toggle: (value?: T) => PromiseOr<T | void>;
-	ref: RefObject<HTMLDialogElement>;
+	ref: RefObject<HTMLDialogElement | null>;
 	isOpen: boolean;
 	isClosed: boolean;
 	state: DialogState;
@@ -42,20 +42,25 @@ export const useDialog = <T>(
 	);
 
 	const open = useCallback(async () => {
-		ref.current?.showModal();
-		await props?.onOpen?.();
+		// Flush React state update before running
+		// `showModal` to prevent weird issues.
+		// This shouldn't break anything but
+		// it does. Don't change this unless
+		// you know what you're doing :)
 		flushSync(() => {
 			setState("open");
 		});
+		ref.current?.showModal();
+
+		await props?.onOpen?.();
 
 		return resolver.current.promise;
 	}, []);
 
 	const close = useCallback(async (value?: T) => {
+		setState("closed");
 		ref.current?.close();
 		await props?.onClose?.(value);
-		setState("closed");
-
 		resolver.current.resolve(value);
 
 		// Ensure promise is only reset on new event loop tick
@@ -78,7 +83,7 @@ export const useDialog = <T>(
 		if (props?.defaultOpen) {
 			open();
 		}
-	}, [open, props?.defaultOpen]);
+	}, [open]);
 
 	return {
 		open,

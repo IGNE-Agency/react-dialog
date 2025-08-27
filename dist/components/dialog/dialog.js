@@ -1,30 +1,30 @@
-import { jsx as c } from "react/jsx-runtime";
-import u from "classnames";
-import { createPortal as l } from "react-dom";
-import { useAttachListeners as n } from "../../lib/use-dialog.js";
-import '../../assets/dialog.css';const i = "_dialog_yuba7_1", p = {
-  dialog: i
+import { jsx as m } from "react/jsx-runtime";
+import n from "classnames";
+import { createPortal as i } from "react-dom";
+import { useAttachListeners as f } from "../../lib/use-dialog.js";
+import '../../assets/dialog.css';const u = "_dialog_yuba7_1", p = {
+  dialog: u
 }, b = ({
   children: o,
   dialog: e,
-  className: a,
+  className: s,
   root: t,
-  ignoreBackdropClick: m,
-  onClick: r,
-  ...f
-}) => (n(e), e.isOpen ? l(
-  /* @__PURE__ */ c(
+  ignoreBackdropClick: a,
+  onClick: c,
+  ...l
+}) => (f(e), e.isOpen ? i(
+  /* @__PURE__ */ m(
     "dialog",
     {
       ref: e.ref,
-      className: u([
+      className: n([
         p.dialog,
-        a
+        s
       ]),
-      onClick: (s) => {
-        !m && s.target === e.ref.current && e.close(), r == null || r(s);
+      onClick: (r) => {
+        !a && r.target === e.ref.current && e.close(), c?.(r);
       },
-      ...f,
+      ...l,
       children: o
     }
   ),

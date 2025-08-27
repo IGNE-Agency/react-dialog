@@ -1,54 +1,48 @@
-import { useState as w, useRef as o, useCallback as r, useEffect as d } from "react";
-import { flushSync as O } from "react-dom";
-const E = (e) => {
-  const [c, u] = w(
-    e != null && e.defaultOpen ? "open" : "closed"
-  ), t = c === "open", v = !t, i = o(null), s = o(
+import { useState as v, useRef as a, useCallback as l, useEffect as f } from "react";
+import { flushSync as d } from "react-dom";
+const O = (e) => {
+  const [t, i] = v(
+    e?.defaultOpen ? "open" : "closed"
+  ), s = t === "open", m = !s, o = a(null), c = a(
     Promise.withResolvers()
-  ), l = r(async () => {
-    var n, a;
-    return (n = i.current) == null || n.showModal(), await ((a = e == null ? void 0 : e.onOpen) == null ? void 0 : a.call(e)), O(() => {
-      u("open");
-    }), s.current.promise;
-  }, []), f = r(async (n) => {
-    var a, m;
-    (a = i.current) == null || a.close(), await ((m = e == null ? void 0 : e.onClose) == null ? void 0 : m.call(e, n)), u("closed"), s.current.resolve(n), setTimeout(() => {
-      s.current = Promise.withResolvers();
+  ), n = l(async () => (d(() => {
+    i("open");
+  }), o.current?.showModal(), await e?.onOpen?.(), c.current.promise), []), u = l(async (r) => {
+    i("closed"), o.current?.close(), await e?.onClose?.(r), c.current.resolve(r), setTimeout(() => {
+      c.current = Promise.withResolvers();
     });
-  }, []), h = r(
-    (n) => t ? f(n) : l(),
-    [f, l, t]
+  }, []), p = l(
+    (r) => s ? u(r) : n(),
+    [u, n, s]
   );
-  return d(() => {
-    e != null && e.defaultOpen && l();
-  }, [l, e == null ? void 0 : e.defaultOpen]), {
-    open: l,
-    close: f,
-    toggle: h,
-    ref: i,
-    isOpen: t,
-    isClosed: v,
-    state: c
+  return f(() => {
+    e?.defaultOpen && n();
+  }, [n]), {
+    open: n,
+    close: u,
+    toggle: p,
+    ref: o,
+    isOpen: s,
+    isClosed: m,
+    state: t
   };
-}, L = (e) => {
-  d(() => {
-    var u;
-    const c = () => {
+}, y = (e) => {
+  f(() => {
+    const t = () => {
       e.close();
     };
-    return (u = e.ref.current) == null || u.addEventListener(
+    return e.ref.current?.addEventListener(
       "cancel",
-      c
+      t
     ), () => {
-      var t;
-      (t = e.ref.current) == null || t.removeEventListener(
+      e.ref.current?.removeEventListener(
         "cancel",
-        c
+        t
       );
     };
   }, [e]);
 };
 export {
-  L as useAttachListeners,
-  E as useDialog
+  y as useAttachListeners,
+  O as useDialog
 };

@@ -1,26 +1,26 @@
 import { jsx as a } from "react/jsx-runtime";
-import m from "classnames";
-import '../../assets/dialog-close.css';const r = "_dialogClose_19r7v_1", d = {
-  dialogClose: r
-}, p = ({
-  dialog: s,
-  onClick: o,
-  children: t,
-  className: e
+import i from "classnames";
+import '../../assets/dialog-close.css';const c = "_dialogClose_19r7v_1", m = {
+  dialogClose: c
+}, C = ({
+  dialog: o,
+  onClick: s,
+  children: l,
+  className: t
 }) => /* @__PURE__ */ a(
   "button",
   {
     type: "button",
-    className: m([
-      d.dialogClose,
-      e
+    className: i([
+      m.dialogClose,
+      t
     ]),
-    onClick: (l) => {
-      s.close(), o == null || o(l);
+    onClick: (e) => {
+      o.close(), s?.(e);
     },
-    children: t
+    children: l
   }
 );
 export {
-  p as default
+  C as default
 };
