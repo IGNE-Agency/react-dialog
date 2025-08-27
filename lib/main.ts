@@ -16,6 +16,7 @@ export {
 } from "./components/dialog/dialog";
 export {
 	useDialog,
+	type DialogState,
 	type UseDialogParams,
 	type UseDialogReturn
 } from "./lib/use-dialog";

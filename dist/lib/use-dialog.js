@@ -1,47 +1,49 @@
-import { useState as v, useRef as i, useCallback as o, useEffect as a } from "react";
-import { flushSync as h } from "react-dom";
+import { useState as w, useRef as o, useCallback as r, useEffect as d } from "react";
+import { flushSync as O } from "react-dom";
 const E = (e) => {
-  const [t, s] = v(
-    (e == null ? void 0 : e.defaultOpen) ?? !1
-  ), r = i(null), u = i(
+  const [c, u] = w(
+    e != null && e.defaultOpen ? "open" : "closed"
+  ), t = c === "open", v = !t, i = o(null), s = o(
     Promise.withResolvers()
-  ), c = o(() => {
-    var n;
-    return h(() => {
-      s(!0);
-    }), (n = r.current) == null || n.showModal(), u.current.promise;
-  }, []), l = o((n) => {
-    var f;
-    (f = r.current) == null || f.close(), s(!1), u.current.resolve(n), setTimeout(() => {
-      u.current = Promise.withResolvers();
+  ), l = r(async () => {
+    var n, a;
+    return (n = i.current) == null || n.showModal(), await ((a = e == null ? void 0 : e.onOpen) == null ? void 0 : a.call(e)), O(() => {
+      u("open");
+    }), s.current.promise;
+  }, []), f = r(async (n) => {
+    var a, m;
+    (a = i.current) == null || a.close(), await ((m = e == null ? void 0 : e.onClose) == null ? void 0 : m.call(e, n)), u("closed"), s.current.resolve(n), setTimeout(() => {
+      s.current = Promise.withResolvers();
     });
-  }, []), m = o(
-    (n) => t ? l(n) : c(),
-    [l, c, t]
+  }, []), h = r(
+    (n) => t ? f(n) : l(),
+    [f, l, t]
   );
-  return a(() => {
-    e != null && e.defaultOpen && c();
-  }, [c]), {
-    open: c,
-    close: l,
-    toggle: m,
-    ref: r,
-    isOpen: t
+  return d(() => {
+    e != null && e.defaultOpen && l();
+  }, [l, e == null ? void 0 : e.defaultOpen]), {
+    open: l,
+    close: f,
+    toggle: h,
+    ref: i,
+    isOpen: t,
+    isClosed: v,
+    state: c
   };
 }, L = (e) => {
-  a(() => {
-    var s;
-    const t = () => {
+  d(() => {
+    var u;
+    const c = () => {
       e.close();
     };
-    return (s = e.ref.current) == null || s.addEventListener(
+    return (u = e.ref.current) == null || u.addEventListener(
       "cancel",
-      t
+      c
     ), () => {
-      var r;
-      (r = e.ref.current) == null || r.removeEventListener(
+      var t;
+      (t = e.ref.current) == null || t.removeEventListener(
         "cancel",
-        t
+        c
       );
     };
   }, [e]);

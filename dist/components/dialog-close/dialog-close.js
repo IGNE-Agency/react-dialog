@@ -1,7 +1,7 @@
 import { jsx as a } from "react/jsx-runtime";
 import m from "classnames";
-import '../../assets/dialog-close.css';const d = "_dialogClose_q31z7_1", g = {
-  dialogClose: d
+import '../../assets/dialog-close.css';const r = "_dialogClose_19r7v_1", d = {
+  dialogClose: r
 }, p = ({
   dialog: s,
   onClick: o,
@@ -12,7 +12,7 @@ import '../../assets/dialog-close.css';const d = "_dialogClose_q31z7_1", g = {
   {
     type: "button",
     className: m([
-      g.dialogClose,
+      d.dialogClose,
       e
     ]),
     onClick: (l) => {

@@ -1,7 +1,7 @@
 {
 	"name": "react-dialog",
 	"private": true,
-	"version": "4.0.0",
+	"version": "4.1.0",
 	"type": "module",
 	"main": "dist/main.js",
 	"types": "dist/main.d.ts",
@@ -33,5 +33,8 @@
 		"vite": "^6.0.5",
 		"vite-plugin-dts": "^4.5.0",
 		"vite-plugin-lib-inject-css": "^2.2.1"
-	}
+	},
+	"trustedDependencies": [
+		"@biomejs/biome"
+	]
 }

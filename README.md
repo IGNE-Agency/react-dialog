@@ -1,6 +1,6 @@
 # React Dialog
 
-A simple headless dialog component for React.
+A simple headless dialog component with hooks for React.
 
 ## Development
 

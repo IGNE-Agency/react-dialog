@@ -9,10 +9,14 @@ import { flushSync } from "react-dom";
 
 type PromiseOr<T> = T | Promise<T>;
 
-export type UseDialogParams = Readonly<{
+export type UseDialogParams<T> = Readonly<{
 	defaultOpen?: boolean;
 	allowEscape?: boolean;
+	onOpen?: () => PromiseOr<void>;
+	onClose?: (value?: T) => PromiseOr<void>;
 }>;
+
+export type DialogState = "open" | "closed";
 
 export type UseDialogReturn<T> = Readonly<{
 	open: () => PromiseOr<T | void>;
@@ -20,36 +24,41 @@ export type UseDialogReturn<T> = Readonly<{
 	toggle: (value?: T) => PromiseOr<T | void>;
 	ref: RefObject<HTMLDialogElement>;
 	isOpen: boolean;
+	isClosed: boolean;
+	state: DialogState;
 }>;
 
 export const useDialog = <T>(
-	props?: UseDialogParams
+	props?: UseDialogParams<T>
 ): UseDialogReturn<T> => {
-	const [isOpen, setIsOpen] = useState(
-		props?.defaultOpen ?? false
+	const [state, setState] = useState<DialogState>(
+		props?.defaultOpen ? "open" : "closed"
 	);
+	const isOpen = state === "open";
+	const isClosed = !isOpen;
 	const ref = useRef<HTMLDialogElement>(null);
 	const resolver = useRef(
 		Promise.withResolvers<T | undefined>()
 	);
 
-	const open = useCallback(() => {
-		flushSync(() => {
-			setIsOpen(true);
-		});
-
+	const open = useCallback(async () => {
 		ref.current?.showModal();
+		await props?.onOpen?.();
+		flushSync(() => {
+			setState("open");
+		});
 
 		return resolver.current.promise;
 	}, []);
 
-	const close = useCallback((value?: T) => {
+	const close = useCallback(async (value?: T) => {
 		ref.current?.close();
-		setIsOpen(false);
+		await props?.onClose?.(value);
+		setState("closed");
 
 		resolver.current.resolve(value);
 
-		// Ensure promise in only reset on new event loop tick
+		// Ensure promise is only reset on new event loop tick
 		setTimeout(() => {
 			resolver.current = Promise.withResolvers();
 		});
@@ -65,19 +74,20 @@ export const useDialog = <T>(
 		[close, open, isOpen]
 	);
 
-	// biome-ignore lint/correctness/useExhaustiveDependencies: Should not react to any changes in `props.defaultOpen`.
 	useEffect(() => {
 		if (props?.defaultOpen) {
 			open();
 		}
-	}, [open]);
+	}, [open, props?.defaultOpen]);
 
 	return {
 		open,
 		close,
 		toggle,
 		ref,
-		isOpen
+		isOpen,
+		isClosed,
+		state
 	};
 };
 

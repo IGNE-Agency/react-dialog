@@ -1,6 +1,6 @@
 import { jsx as s } from "react/jsx-runtime";
 import o from "classnames";
-import '../../assets/dialog-header.css';const t = "_header_1pm7r_1", d = {
+import '../../assets/dialog-header.css';const t = "_header_uvoiy_1", d = {
   header: t
 }, h = ({
   children: e,
