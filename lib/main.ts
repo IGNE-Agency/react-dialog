@@ -1,4 +1,8 @@
 export {
+  default as DialogClose,
+  type DialogCloseProps,
+} from "./components/dialog-close/dialog-close";
+export {
 	default as DialogContent,
 	type DialogContentProps
 } from "./components/dialog-content/dialog-content";

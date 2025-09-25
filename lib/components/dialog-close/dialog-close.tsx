@@ -3,7 +3,7 @@ import type { HTMLAttributes } from "react";
 import type { UseDialogReturn } from "../../lib/use-dialog";
 import style from "./dialog-close.module.css";
 
-type DialogCloseProps<T> = Readonly<{
+export type DialogCloseProps<T> = Readonly<{
 	dialog: UseDialogReturn<T>;
 }> &
 	HTMLAttributes<HTMLButtonElement>;
