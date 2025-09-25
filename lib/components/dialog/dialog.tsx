@@ -1,10 +1,7 @@
 import classNames from "classnames";
 import type { HTMLAttributes } from "react";
 import { createPortal } from "react-dom";
-import {
-	type UseDialogReturn,
-	useAttachListeners
-} from "../../lib/use-dialog";
+import { type UseDialogReturn, useAttachListeners } from "../../lib/use-dialog";
 import style from "./dialog.module.css";
 
 export type DialogProps<T> = Readonly<{
@@ -25,31 +22,26 @@ const Dialog = <T,>({
 }: DialogProps<T>) => {
 	useAttachListeners(dialog);
 
-	return !dialog.isOpen
-		? null
-		: createPortal(
+	return dialog.isOpen && dialog.ref.current !== null
+		? createPortal(
+				// biome-ignore lint/a11y/useKeyWithClickEvents: not relevant, because of `useAttachListeners`
 				<dialog
 					ref={dialog.ref}
-					className={classNames([
-						style.dialog,
-						className
-					])}
-					onClick={e => {
-						if (
-							!ignoreBackdropClick &&
-							e.target === dialog.ref.current
-						) {
+					className={classNames([style.dialog, className])}
+					onClick={(e) => {
+						if (!ignoreBackdropClick && e.target === dialog.ref.current) {
 							dialog.close();
 						}
 						onClick?.(e);
 					}}
-					{...props}>
+					{...props}
+				>
 					{children}
 				</dialog>,
-				(typeof root === "string"
-					? document.querySelector(root)
-					: root) ?? document.body
-		  );
+				(typeof root === "string" ? document.querySelector(root) : root) ??
+					document.body,
+			)
+		: null;
 };
 
 export default Dialog;

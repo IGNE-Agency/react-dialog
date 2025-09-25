@@ -3,7 +3,7 @@ import {
 	useCallback,
 	useEffect,
 	useRef,
-	useState
+	useState,
 } from "react";
 import { flushSync } from "react-dom";
 
@@ -29,18 +29,17 @@ export type UseDialogReturn<T> = Readonly<{
 }>;
 
 export const useDialog = <T>(
-	props?: UseDialogParams<T>
+	props?: UseDialogParams<T>,
 ): UseDialogReturn<T> => {
 	const [state, setState] = useState<DialogState>(
-		props?.defaultOpen ? "open" : "closed"
+		props?.defaultOpen ? "open" : "closed",
 	);
 	const isOpen = state === "open";
 	const isClosed = !isOpen;
 	const ref = useRef<HTMLDialogElement>(null);
-	const resolver = useRef(
-		Promise.withResolvers<T | undefined>()
-	);
+	const resolver = useRef(Promise.withResolvers<T | undefined>());
 
+	// biome-ignore lint/correctness/useExhaustiveDependencies: temp workaround
 	const open = useCallback(async () => {
 		// Flush React state update before running
 		// `showModal` to prevent weird issues.
@@ -57,6 +56,7 @@ export const useDialog = <T>(
 		return resolver.current.promise;
 	}, []);
 
+	// biome-ignore lint/correctness/useExhaustiveDependencies: temp workaround
 	const close = useCallback(async (value?: T) => {
 		setState("closed");
 		ref.current?.close();
@@ -76,9 +76,11 @@ export const useDialog = <T>(
 			}
 			return open();
 		},
-		[close, open, isOpen]
+		[close, open, isOpen],
 	);
 
+	// TODO: Look into this, not sure if we need it.
+	// biome-ignore lint/correctness/useExhaustiveDependencies: really only update on open
 	useEffect(() => {
 		if (props?.defaultOpen) {
 			open();
@@ -92,28 +94,20 @@ export const useDialog = <T>(
 		ref,
 		isOpen,
 		isClosed,
-		state
+		state,
 	};
 };
 
-export const useAttachListeners = <T>(
-	dialog: UseDialogReturn<T>
-) => {
+export const useAttachListeners = <T>(dialog: UseDialogReturn<T>) => {
 	useEffect(() => {
 		const listener = () => {
 			dialog.close();
 		};
 
-		dialog.ref.current?.addEventListener(
-			"cancel",
-			listener
-		);
+		dialog.ref.current?.addEventListener("cancel", listener);
 
 		return () => {
-			dialog.ref.current?.removeEventListener(
-				"cancel",
-				listener
-			);
+			dialog.ref.current?.removeEventListener("cancel", listener);
 		};
 	}, [dialog]);
 };
