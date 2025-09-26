@@ -2,12 +2,12 @@ import { StrictMode, useState } from "react";
 import { createRoot } from "react-dom/client";
 import {
 	Dialog,
+	DialogClose,
 	DialogContent,
 	DialogFooter,
 	DialogHeader,
 	useDialog,
-} from "../";
-import DialogClose from "../lib/components/dialog-close/dialog-close";
+} from "../lib/main";
 
 const rootElement = document.getElementById("root");
 
@@ -58,7 +58,7 @@ const App = () => {
 		setPosts((posts) =>
 			posts.concat({
 				...data,
-				id: posts.length.toString(),
+				id: (posts.length + 1).toString(),
 			}),
 		);
 

@@ -15,7 +15,8 @@
 		"dev": "vite",
 		"format": "bunx biome check --write --unsafe src",
 		"prebuild": "bun run format",
-		"build": "tsc --p ./tsconfig-build.json && vite build"
+		"build": "tsc --p ./tsconfig-build.json && vite build",
+		"check-ts": "tsc"
 	},
 	"dependencies": {
 		"classnames": "2.5.1",
