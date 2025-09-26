@@ -1,12 +1,14 @@
-import { default as e } from "./components/dialog-content/dialog-content.js";
-import { default as t } from "./components/dialog-footer/dialog-footer.js";
-import { default as l } from "./components/dialog-header/dialog-header.js";
-import { default as g } from "./components/dialog/dialog.js";
-import { useDialog as m } from "./lib/use-dialog.js";
+import { default as e } from "./components/dialog-close/dialog-close.js";
+import { default as t } from "./components/dialog-content/dialog-content.js";
+import { default as f } from "./components/dialog-footer/dialog-footer.js";
+import { default as d } from "./components/dialog-header/dialog-header.js";
+import { default as i } from "./components/dialog/dialog.js";
+import { useDialog as p } from "./lib/use-dialog.js";
 export {
-  g as Dialog,
-  e as DialogContent,
-  t as DialogFooter,
-  l as DialogHeader,
-  m as useDialog
+  i as Dialog,
+  e as DialogClose,
+  t as DialogContent,
+  f as DialogFooter,
+  d as DialogHeader,
+  p as useDialog
 };

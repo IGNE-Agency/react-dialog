@@ -1,35 +1,33 @@
-import { jsx as m } from "react/jsx-runtime";
+import { jsx as f } from "react/jsx-runtime";
 import n from "classnames";
-import { createPortal as i } from "react-dom";
-import { useAttachListeners as f } from "../../lib/use-dialog.js";
-import '../../assets/dialog.css';const u = "_dialog_yuba7_1", p = {
-  dialog: u
-}, b = ({
+import { createPortal as l } from "react-dom";
+import { useAttachListeners as u } from "../../lib/use-dialog.js";
+import '../../assets/dialog.css';const i = "_dialog_cq83n_1", p = {
+  dialog: i
+}, q = ({
   children: o,
   dialog: e,
-  className: s,
+  className: a,
   root: t,
-  ignoreBackdropClick: a,
-  onClick: c,
-  ...l
-}) => (f(e), e.isOpen ? i(
-  /* @__PURE__ */ m(
+  ignoreBackdropClick: m,
+  onClick: r,
+  ...c
+}) => (u(e), e.isOpen ? l(
+  // biome-ignore lint/a11y/useKeyWithClickEvents: not relevant, because of `useAttachListeners`
+  /* @__PURE__ */ f(
     "dialog",
     {
       ref: e.ref,
-      className: n([
-        p.dialog,
-        s
-      ]),
-      onClick: (r) => {
-        !a && r.target === e.ref.current && e.close(), c?.(r);
+      className: n([p.dialog, a]),
+      onClick: (s) => {
+        !m && s.target === e.ref.current && e.close(), r == null || r(s);
       },
-      ...l,
+      ...c,
       children: o
     }
   ),
   (typeof t == "string" ? document.querySelector(t) : t) ?? document.body
 ) : null);
 export {
-  b as default
+  q as default
 };
