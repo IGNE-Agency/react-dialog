@@ -22,7 +22,7 @@ export type UseDialogReturn<T> = Readonly<{
 	open: () => PromiseOr<T | void>;
 	close: (value?: T) => void;
 	toggle: (value?: T) => PromiseOr<T | void>;
-	ref: RefObject<HTMLDialogElement | null>;
+	ref: RefObject<HTMLDialogElement>;
 	isOpen: boolean;
 	isClosed: boolean;
 	state: DialogState;

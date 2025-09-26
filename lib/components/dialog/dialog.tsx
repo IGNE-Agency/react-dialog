@@ -22,7 +22,7 @@ const Dialog = <T,>({
 }: DialogProps<T>) => {
 	useAttachListeners(dialog);
 
-	return dialog.isOpen && dialog.ref.current !== null
+	return dialog.isOpen
 		? createPortal(
 				// biome-ignore lint/a11y/useKeyWithClickEvents: not relevant, because of `useAttachListeners`
 				<dialog
