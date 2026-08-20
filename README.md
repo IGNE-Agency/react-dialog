@@ -1,3 +1,6 @@
+> [!WARNING]
+> This project is no longer maintained. Please migrate to another package. [We use `base-ui` for our dialogs at IGNE](https://base-ui.com). 
+
 # React Dialog
 
 A simple headless dialog component with hooks for React.
